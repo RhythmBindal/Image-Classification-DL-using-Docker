@@ -1,0 +1,102 @@
+{
+    "neural_network": {
+        "outfile": "out_dnn_animals_sgd.txt",
+        "num_epochs": 50,
+        "data": {
+            "input_type": "images",
+            "input_path":      "./output/train/",
+            "test_input_path": "./output/test/",
+            "target_type": "labels",
+            "batch_size": 32,
+            "training_tag": "train",
+            "test_tag":     "test",
+            "transforms": [
+                { "resize": [32, 55] }
+            ]
+        },
+        "optimizer": {
+            "type": "RMSprop",
+            "learning_rate": 0.03,
+            "momentum": 0.5
+        },
+        "loss": {
+            "function": "NLL"
+        },
+        "layers": [
+            {
+                "class_name": "Conv2D",
+                "config": {
+                    "name": "conv1",
+                    "batch_input_shape": [32, 55, 3],
+                    "filters": 32,
+                    "kernel_size": [2, 2],
+                    "activation": "relu",
+                    "use_bias": true
+                }
+            },
+            {
+                "class_name": "MaxPooling2D",
+                "config": {
+                    "name": "max_pool_1",
+                    "pool_size": [2, 2]
+                }
+            },
+            {
+                "class_name": "Conv2D",
+                "config": {
+                    "name": "conv2",
+                    "filters": 32,
+                    "kernel_size": [2, 2],
+                    "activation": "relu",
+                    "use_bias": true
+                }
+            },
+            {
+                "class_name": "MaxPooling2D",
+                "config": {
+                    "name": "max_pool_2",
+                    "pool_size": [2, 2]
+                }
+            },
+            {
+                "class_name": "Dropout",
+                "config": {
+                    "name": "dropout1",
+                    "rate": 0.25
+                }
+            },
+            {
+                "class_name": "Flatten",
+                "config": {
+                    "name": "flatten_1",
+                    "trainable": true
+                }
+            },
+            {
+                "class_name": "Dense",
+                "config": {
+                    "name": "fc1",
+                    "units": 128,
+                    "activation": "relu",
+                    "use_bias": true
+                }
+            },
+            {
+                "class_name": "Dropout",
+                "config": {
+                    "name": "dropout2",
+                    "rate": 0.5
+                }
+            },
+            {
+                "class_name": "Dense",
+                "config": {
+                    "name": "fc2",
+                    "units": 3,
+                    "activation": "softmax",
+                    "use_bias": true
+                }
+            }            
+        ]
+    }
+}

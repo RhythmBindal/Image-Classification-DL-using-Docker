@@ -1,0 +1,5 @@
+digraph G {
+  node [fontname=Math, fontsize=20, color=black, style=filled, fillcolor=lightgrey]
+  input_layer [label="input_layer\n[passthrough]\n(64 64)"]
+  input_layer -> { }
+}
